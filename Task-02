@@ -1,0 +1,94 @@
+#include <stdio.h>
+
+int calls = 0;
+
+int verify_card(int card)
+{
+    calls++;
+
+    return card;
+}
+
+int main()
+{
+    int i;
+    int senior, eligible, disability;
+
+    int senior_count = 0;
+    int eligible_count = 0;
+    int disability_count = 0;
+
+    int result1, result2;
+
+    printf("RAILWAY CONCESSION SYSTEM\n");
+
+    /* Test 1: Senior and eligible checked first */
+
+    calls = 0;
+
+    for (i = 0; i < 1000; i++)
+    {
+        senior = (i % 2 == 0);
+        eligible = (i % 3 == 0);
+        disability = (i % 5 == 0);
+
+        result1 = (senior && eligible) ||
+                  verify_card(disability);
+    }
+
+    printf("\nOrder 1: Senior && Eligible || Verify Card");
+    printf("\nVerification Function Calls = %d\n", calls);
+
+
+    /* Test 2: Disability verification checked first */
+
+    calls = 0;
+
+    for (i = 0; i < 1000; i++)
+    {
+        senior = (i % 2 == 0);
+        eligible = (i % 3 == 0);
+        disability = (i % 5 == 0);
+
+        result2 = verify_card(disability) ||
+                  (senior && eligible);
+    }
+
+    printf("\nOrder 2: Verify Card || Senior && Eligible");
+    printf("\nVerification Function Calls = %d\n", calls);
+
+
+    /* Demonstrate AND short-circuit */
+
+    calls = 0;
+
+    result1 = 0 && verify_card(1);
+
+    printf("\nLogical AND (&&) Calls = %d\n", calls);
+
+
+    /* Demonstrate OR short-circuit */
+
+    calls = 0;
+
+    result1 = 1 || verify_card(1);
+
+    printf("Logical OR (||) Calls = %d\n", calls);
+
+
+    /* Difference between & and && */
+
+    calls = 0;
+
+    result1 = 0 & verify_card(1);
+
+    printf("Bitwise AND (&) Calls = %d\n", calls);
+
+    calls = 0;
+
+    result1 = 0 && verify_card(1);
+
+    printf("Logical AND (&&) Calls = %d\n", calls);
+
+    return 0;
+}
