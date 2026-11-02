@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+int main()
+{
+    double price, qty;
+    double gross, discount, taxable, gst, total, net;
+    int count = 0;
+    int i;
+
+    for (i = 1; i <= 3; i++)
+    {
+        printf("\nEnter price and quantity for bill %d: ", i);
+        scanf("%lf %lf", &price, &qty);
+
+        gross = price * qty;
+
+        discount = gross * 15.0 / 100.0;
+
+        taxable = gross - discount;
+
+        gst = taxable * 5.0 / 100.0;
+
+        total = taxable + gst;
+
+        net = (total > 1000) ? total - 50 : total;
+
+        count++;
+
+        printf("\nBill %d Details\n", i);
+        printf("Gross Amount = %.2lf\n", gross);
+        printf("Discount = %.2lf\n", discount);
+        printf("Taxable Amount = %.2lf\n", taxable);
+        printf("GST = %.2lf\n", gst);
+        printf("Total Amount = %.2lf\n", total);
+        printf("Net Amount = %.2lf\n", net);
+    }
+
+    printf("\nTotal Bills Processed = %d\n", count);
+
+    return 0;
+}
